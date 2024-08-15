@@ -12,6 +12,8 @@ import java.util.NoSuchElementException;
  */
 @Slf4j
 public class MemberRepositoryV0 {
+
+   // JDBC - 등록
     public Member save(Member member) throws SQLException {
 
         String sql = "insert into member(member_id, money) values(?, ?)";
@@ -34,6 +36,7 @@ public class MemberRepositoryV0 {
         }
     }
 
+    // JDBC - 조회
     public Member findById(String memberId) throws SQLException {
 
         String sql = "select * from member where member_id = ?";
@@ -63,6 +66,31 @@ public class MemberRepositoryV0 {
             close(con, pstmt, rs);
         }
     }
+
+    // JDBC - 수정
+    public void update(String memberId, int money) throws SQLException {
+
+        String sql = "update member set money=? where member_id=?";
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, money);
+            pstmt.setString(2, memberId);
+            int resultSize = pstmt.executeUpdate();
+            log.info("resultSize={}", resultSize);
+        } catch (SQLException e) {
+            log.error("db error", e);
+            throw e;
+        } finally {
+            close(con, pstmt, null);
+        }
+    }
+
+    // JDBC - 삭제
 
     private void close(Connection con, Statement stmt, ResultSet rs) {
 
