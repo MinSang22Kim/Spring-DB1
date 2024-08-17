@@ -1,0 +1,23 @@
+// 섹션3. 트랜잭션 이해
+
+// DB Lock 실습 SQL 코드
+
+// 기본 데이터 입력 - SQL
+set autocommit true;
+delete from member;
+insert into member(member_id, money) values ('memberA',10000);
+
+// 세션1
+set autocommit false;
+update member set money=500 where member_id = 'memberA';
+
+// 세션2
+SET LOCK_TIMEOUT 60000;
+set autocommit false;
+update member set money=1000 where member_id = 'memberA';
+
+// 세션1
+commit;
+
+// 세션2
+commit;
