@@ -1,3 +1,7 @@
+// 섹션3. 트랜잭션 이해
+
+// 트랜잭션 실습 SQL 코드
+
 // 수동 커밋 설정**
 set autocommit false; //수동 커밋 모드 설정
 insert into member(member_id, money) values ('data3',10000);
@@ -17,3 +21,19 @@ insert into member(member_id, money) values ('newId2',10000);
 
 // 세션1, 세션2에서 다음 쿼리를 실행해서 결과를 확인
 select * from member;
+
+// 기본 데이터 입력 - SQL
+set autocommit true;
+delete from member;
+insert into member(member_id, money) values ('memberA',10000);
+insert into member(member_id, money) values ('memberB',10000);
+
+// 계좌이체 실행 SQL - 성공
+set autocommit false;
+update member set money=10000 - 2000 where member_id = 'memberA';
+update member set money=10000 + 2000 where member_id = 'memberB';
+
+// 계좌이체 실행 SQL - 오류
+set autocommit false;
+update member set money=10000 - 2000 where member_id = 'memberA'; // 성공
+update member set money=10000 + 2000 where member_iddd = 'memberB'; // 쿼리 예외 발생
