@@ -1,0 +1,19 @@
+// 수동 커밋 설정**
+set autocommit false; //수동 커밋 모드 설정
+insert into member(member_id, money) values ('data3',10000);
+insert into member(member_id, money) values ('data4',10000);
+commit; //수동 커밋
+
+// 데이터 초기화
+set autocommit true;
+delete from member;
+insert into member(member_id, money) values ('oldId',10000);
+
+// 세션1 신규 데이터 추가 SQL
+//트랜잭션 시작
+set autocommit false; // 수동 커밋 모드
+insert into member(member_id, money) values ('newId1',10000);
+insert into member(member_id, money) values ('newId2',10000);
+
+// 세션1, 세션2에서 다음 쿼리를 실행해서 결과를 확인
+select * from member;
