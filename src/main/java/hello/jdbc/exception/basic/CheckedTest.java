@@ -22,7 +22,7 @@ public class CheckedTest {
     }
 
     /**
-     * Exception을 상속받은 예외는 체크 예외가 된다.
+     * Exception을 상속받은 예외는 체크 예외
      */
     static class MyCheckedException extends Exception {
         public MyCheckedException(String message) {
@@ -32,7 +32,7 @@ public class CheckedTest {
 
     /**
      * Checked 예외는
-     * * 예외를 잡아서 처리하거나, 던지거나 둘중 하나를 필수로 선택해야 한다.
+     * * 예외를 잡아서 처리하거나, 던지거나 둘중 하나를 필수로 선택
      */
     static class Service {
 
@@ -53,7 +53,7 @@ public class CheckedTest {
 
         /**
          * 체크 예외를 밖으로 던지는 코드
-         * 체크 예외는 예외를 잡지 않고 밖으로 던지려면 throws 예외를 메서드에 필수로 선언해야한다.
+         * 체크 예외는 예외를 잡지 않고 밖으로 던지려면 throws 예외를 메서드에 필수로 선언
          */
         public void callThrow() throws MyCheckedException {
             repository.call();
